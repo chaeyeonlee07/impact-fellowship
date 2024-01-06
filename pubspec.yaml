@@ -31,8 +31,13 @@ dependencies:
 
   flutter:
     sdk: flutter
+<<<<<<< HEAD
+  flutter_localizations:
+    sdk: flutter
+=======
    
     
+>>>>>>> 5a7ef7bf20975055a9806556ee98cdeebb66ff20
   http: ^0.13.5
   permission_handler: ^11.1.0
 
