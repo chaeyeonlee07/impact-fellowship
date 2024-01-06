@@ -56,6 +56,6 @@ class ApiService {
 
   String _buildApiUrl(
       double minLat, double minLon, double maxLat, double maxLon) {
-    return 'https://api.gbif.org/v1/occurrence/search?geometry=POLYGON(($minLon $minLat, $maxLon $minLat, $maxLon $maxLat, $minLon $maxLat, $minLon $minLat))';
+    return 'https://api.gbif.org/v1/occurrence/search?decimalLatitude=55.96,%2055.98&decimalLongitude=12.20,12.25';
   }
 }
