@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:impact/services/api_service.dart';
-import 'package:impact/screens/homescreen.dart';
+import 'package:impact/screens/onboarding1.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,8 +12,8 @@ class App extends StatelessWidget {
   const App({super.key});
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: HomeScreen(),
+    return const MaterialApp(
+      home: onBoarding1(),
     );
   }
 } 
