@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:impact/services/api_service.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  ApiService().executeApiService();
   runApp(const App());
 }
 
