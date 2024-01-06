@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class onBoarding1 extends StatelessWidget {
-  const onBoarding1({super.key});
+class OnBoarding1 extends StatelessWidget {
+  const OnBoarding1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,13 @@ class onBoarding1 extends StatelessWidget {
           ),
           child: const Center(
             child: Text(
-              'Wood Wonder',
+              'Your App Content Goes Here',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 45,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Yeseva',
+                fontFamily:
+                    'Yeseva', // Replace 'Yeseva' with the actual font family name
               ),
             ),
           ),
