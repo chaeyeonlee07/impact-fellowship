@@ -31,13 +31,9 @@ dependencies:
 
   flutter:
     sdk: flutter
-<<<<<<< HEAD
   flutter_localizations:
     sdk: flutter
-=======
-   
     
->>>>>>> 5a7ef7bf20975055a9806556ee98cdeebb66ff20
   http: ^0.13.5
   permission_handler: ^11.1.0
 
@@ -45,6 +41,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   geolocator: ^10.1.0
+  image_picker: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +70,7 @@ flutter:
     - lib/images/animalia.png
     - lib/images/plantae.png
     - lib/images/fungi.png 
+    - lib/images/defaultpfp.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

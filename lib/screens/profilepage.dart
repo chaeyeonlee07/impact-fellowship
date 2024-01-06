@@ -1,41 +1,28 @@
 
 import 'package:flutter/material.dart';
-import 'package:impact/services/api_service.dart';
-import 'package:impact/screens/onboarding1.dart';
-import 'package:impact/screens/challengeToday.dart';
-
-void main() {
-  runApp(const App());
-}
+import 'package:image_picker/image_picker.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
-      title: "Profile",
+    return MaterialApp(
       home: ProfilePage(),
     );
   }
 }
-// class App extends StatelessWidget {
-//   const App({Key? key}) : super(key = key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: challengeToday(),
-//     );
-//   }
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  late PickedFile _imageFile;
+   final ImagePicker _picker = ImagePicker();
+
+  ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 203, 235, 204),
+        backgroundColor:  const Color.fromARGB(255, 203, 235, 204),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40),
           child: Column(
@@ -94,13 +81,17 @@ Widget bottomsheet(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                takePhoto(ImageSource.camera);
+              },
               icon: const Icon(Icons.camera),
               label: const Text("Camera"),
             ),
             TextButton.icon(
               icon: const Icon(Icons.image),
-              onPressed: () {},
+              onPressed: () {
+                takePhoto(ImageSource.gallery);
+              },
               label: const Text("Gallery"),
             )
           ],
@@ -110,18 +101,26 @@ Widget bottomsheet(BuildContext context) {
   );
 }
 
+void takePhoto(ImageSource source) async {
+  final PickedFile = await _picker.getImage(
+    source: source
+  );
+  SetState(() {
+    _imageFile = pickedFile;
+  });
+}
 
 Widget pfp(BuildContext context) {
   return Stack(
     children: <Widget>[
       const CircleAvatar(
         radius: 80,
-        backgroundImage: AssetImage("assets/defaultpfp.png"),
-        backgroundColor: Colors.white,
+        backgroundImage: _imageFile == null? AssetImage("lib/images/defaultpfp.png"): FileImage(_imageFile),
+        
       ),
       Positioned(
-        bottom: 20,
-        right: 20,
+        bottom: 10,
+        right: 10,
         child: InkWell(
           onTap: () {
             showModalBottomSheet(
@@ -132,7 +131,8 @@ Widget pfp(BuildContext context) {
           child: const Icon(
             Icons.camera_alt,
             color: Colors.teal,
-            size: 20,
+            size: 50,
+            shadows: [Shadow(color: Colors.black), ],
           ),
         ),
       ),
