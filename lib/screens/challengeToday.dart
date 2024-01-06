@@ -2,8 +2,8 @@ import 'package:impact/services/api_service.dart';
 import 'package:impact/models/specie.dart';
 import 'package:flutter/material.dart';
 
-class challengeToday extends StatelessWidget {
-  challengeToday({super.key});
+class ChallengeToday extends StatelessWidget {
+  ChallengeToday({Key? key}) : super(key: key);
 
   final Future<List<Specie>> species =
       ApiService.getSpeciesInArea(55.96, 55.97, 12.20, 12.25);
@@ -14,13 +14,11 @@ class challengeToday extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 2,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 148, 189, 124),
+        foregroundColor: const Color.fromARGB(255, 254, 254, 253),
         title: const Text(
-          "specie",
-          style: TextStyle(
-            fontSize: 24,
-          ),
+          "Challenge of the Day",
+          style: TextStyle(fontSize: 24, fontFamily: 'Yeseva'),
         ),
       ),
       body: FutureBuilder(
@@ -31,14 +29,19 @@ class challengeToday extends StatelessWidget {
               return Column(
                 children: [
                   const SizedBox(
-                    height: 100,
+                    height: 10,
                   ),
                   Expanded(child: makeList(snapshot)),
                 ],
               );
             } else {
               return const Center(
-                child: Text('No species data available'),
+                child: Center(
+                  child: Text(
+                    'No species data available',
+                    style: TextStyle(fontSize: 18, fontFamily: 'Tenor'),
+                  ),
+                ),
               );
             }
           } else {
@@ -58,9 +61,21 @@ class challengeToday extends StatelessWidget {
       itemBuilder: (context, index) {
         var specie = snapshot.data![index];
         return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(specie.specieName),
-            getImageForKingdom(specie.kingdom),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                specie.specieName,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontFamily: 'Tenor', fontSize: 20),
+              ),
+            ),
+            SizedBox(
+              width: 100, // Adjust the width as needed
+              height: 100, // Adjust the height as needed
+              child: getImageForKingdom(specie.kingdom),
+            ),
           ],
         );
       },

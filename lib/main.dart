@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:impact/services/api_service.dart';
 import 'package:impact/screens/onboarding1.dart';
 import 'package:impact/screens/challengeToday.dart';
-import 'package:impact/screens/profilepage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +14,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: challengeToday(),
+    return MaterialApp(
+      home: ChallengeToday(),
     );
   }
 }
