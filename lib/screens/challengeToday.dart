@@ -2,15 +2,14 @@ import 'package:impact/services/api_service.dart';
 import 'package:impact/models/specie.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class challengeToday extends StatelessWidget {
+  challengeToday({super.key});
 
   final Future<List<Specie>> species =
       ApiService.getSpeciesInArea(55.96, 55.97, 12.20, 12.25);
 
   @override
   Widget build(BuildContext context) {
-    print(species);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
