@@ -81,9 +81,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-  - family: Yeseva
-    fonts:
-      - asset: lib/assets/fonts/YesevaOne-Regular.ttf
+    - family: Yeseva
+      fonts:
+        - asset: lib/assets/fonts/YesevaOne-Regular.ttf
+    - family: Tenor
+      fonts:
+        - asset: lib/assets/fonts/TenorSans-Regular.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
