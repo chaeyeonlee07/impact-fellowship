@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:impact/models/specie.dart';
 
 class ApiService {
   Future<Position> _determinePosition() async {
@@ -25,12 +26,15 @@ class ApiService {
     try {
       final apiUrl =
           "https://api.gbif.org/v1/occurrence/search?decimalLatitude=$minLat,$maxLat&decimalLongitude=$minLon,$maxLon&limit=100";
-      print(apiUrl);
       final response = await http.get(Uri.parse(apiUrl));
 
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        print(data);
+        final List<dynamic> result = jsonDecode(response.body)['results'];
+        for (var specie in result) {
+          final log = Specie.fromJson(specie);
+          print(log.kingdom);
+        }
+        return;
       } else {
         print('Failed to fetch species data: ${response.statusCode}');
         throw Exception('Failed to fetch species data');
