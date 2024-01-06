@@ -21,8 +21,9 @@ class ApiService {
     }
   }
 
-  Future<void> getSpeciesInArea(
+  static Future<List<Specie>> getSpeciesInArea(
       double minLat, double maxLat, double minLon, double maxLon) async {
+    List<Specie> specieInstances = [];
     try {
       final apiUrl =
           "https://api.gbif.org/v1/occurrence/search?decimalLatitude=$minLat,$maxLat&decimalLongitude=$minLon,$maxLon&limit=100";
@@ -32,25 +33,15 @@ class ApiService {
         final List<dynamic> result = jsonDecode(response.body)['results'];
         for (var specie in result) {
           final log = Specie.fromJson(specie);
-          print(log.kingdom);
+          specieInstances.add(log);
         }
-        return;
+        return specieInstances;
       } else {
         print('Failed to fetch species data: ${response.statusCode}');
         throw Exception('Failed to fetch species data');
       }
     } catch (e) {
       print('Error fetching species data: $e');
-      rethrow;
-    }
-  }
-
-  Future<void> executeApiService() async {
-    try {
-      // final position = await _determinePosition();
-      await getSpeciesInArea(55.96, 55.97, 12.20, 12.25);
-    } catch (e) {
-      print('Error executing API service: $e');
       rethrow;
     }
   }
