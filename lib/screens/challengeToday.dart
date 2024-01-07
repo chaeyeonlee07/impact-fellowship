@@ -1,6 +1,7 @@
 import 'package:impact/services/api_service.dart';
 import 'package:impact/models/specie.dart';
 import 'package:flutter/material.dart';
+import 'package:impact/screens/camera.dart';
 
 class ChallengeToday extends StatelessWidget {
   ChallengeToday({Key? key}) : super(key: key);
@@ -31,41 +32,53 @@ class ChallengeToday extends StatelessWidget {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   var specie = snapshot.data![index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 1,
-                            offset: const Offset(1, -10),
-                            color: const Color.fromARGB(255, 194, 219, 148)
-                                .withOpacity(0.9),
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 100, // Adjust the width as needed
-                            height: 100, // Adjust the height as needed
-                            child: getImageForKingdom(specie.kingdom),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              specie.specieName,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontFamily: 'Tenor',
-                                fontSize: 20,
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigate to the camera screen when tapped
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CameraScreen(
+                              cameras:  ), // Assuming 'cameras' is a property of Specie
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 1,
+                              offset: const Offset(1, -10),
+                              color: const Color.fromARGB(255, 194, 219, 148)
+                                  .withOpacity(0.9),
+                            )
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 100, // Adjust the width as needed
+                              height: 100, // Adjust the height as needed
+                              child: getImageForKingdom(specie.kingdom),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                specie.specieName,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontFamily: 'Tenor',
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
