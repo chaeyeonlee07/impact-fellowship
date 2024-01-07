@@ -22,7 +22,8 @@ class CameraScreen extends StatefulWidget {
 class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
-    initializeCamera(selectedCamera); //Initially selectedCamera = 0
+    capturedImages = []; // Initialize capturedImages
+    initializeCamera(selectedCamera); // Initially selectedCamera = 0
     super.initState();
   }
 
@@ -122,12 +123,12 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (capturedImages.isEmpty) return;
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GalleryScreen(
-                                images: capturedImages.reversed.toList())));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const GalleryScreen(),
+                      ),
+                    );
                   },
                   child: Container(
                     height: 60,
