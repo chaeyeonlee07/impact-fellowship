@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -23,6 +24,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   XFile? _imageFile;
   final ImagePicker _picker = ImagePicker();
+
+  
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ],
+              
             ),
+            const SizedBox(height: 10),
+            const Text("asdf")
           ],
         ),
       ),
