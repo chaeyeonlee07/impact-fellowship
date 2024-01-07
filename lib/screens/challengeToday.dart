@@ -26,21 +26,58 @@ class ChallengeToday extends StatelessWidget {
         builder: (context, AsyncSnapshot<List<Specie>> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Expanded(child: makeList(snapshot)),
-                ],
+              return ListView.separated(
+                padding: const EdgeInsets.all(10.0),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  var specie = snapshot.data![index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 1,
+                            offset: const Offset(1, -10),
+                            color: const Color.fromARGB(255, 194, 219, 148)
+                                .withOpacity(0.9),
+                          )
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 100, // Adjust the width as needed
+                            height: 100, // Adjust the height as needed
+                            child: getImageForKingdom(specie.kingdom),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              specie.specieName,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontFamily: 'Tenor',
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 20),
               );
             } else {
               return const Center(
-                child: Center(
-                  child: Text(
-                    'No species data available',
-                    style: TextStyle(fontSize: 18, fontFamily: 'Tenor'),
-                  ),
+                child: Text(
+                  'No species data available',
+                  style: TextStyle(fontSize: 18, fontFamily: 'Tenor'),
                 ),
               );
             }
@@ -51,35 +88,6 @@ class ChallengeToday extends StatelessWidget {
           }
         },
       ),
-    );
-  }
-
-  ListView makeList(AsyncSnapshot<List<Specie>> snapshot) {
-    return ListView.separated(
-      scrollDirection: Axis.vertical,
-      itemCount: snapshot.data!.length,
-      itemBuilder: (context, index) {
-        var specie = snapshot.data![index];
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                specie.specieName,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontFamily: 'Tenor', fontSize: 20),
-              ),
-            ),
-            SizedBox(
-              width: 100, // Adjust the width as needed
-              height: 100, // Adjust the height as needed
-              child: getImageForKingdom(specie.kingdom),
-            ),
-          ],
-        );
-      },
-      separatorBuilder: (context, index) => const SizedBox(height: 20),
     );
   }
 
