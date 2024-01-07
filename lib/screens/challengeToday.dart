@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:impact/screens/profilepage.dart';
 import 'package:impact/services/api_service.dart';
 import 'package:impact/models/specie.dart';
-import 'package:impact/screens/camera.dart';
-import 'package:camera/camera.dart';
+import 'package:image_picker/image_picker.dart'; // Import image_picker
+import 'dart:io';
+import 'package:impact/profilepage.dart';
 
 class ChallengeToday extends StatefulWidget {
   const ChallengeToday({Key? key}) : super(key: key);
@@ -15,11 +17,10 @@ class ChallengeTodayState extends State<ChallengeToday> {
   final Future<List<Specie>> species =
       ApiService.getSpeciesInArea(55.96, 55.97, 12.20, 12.25);
 
-  List<CameraDescription>? camerasList;
+  Map<int, File?> selectedImagesMap = {}; // Map to store selected images for each challenge
 
   Future<void> initializeCameras() async {
-    camerasList = await availableCameras();
-    setState(() {}); // Trigger a rebuild after initializing cameras
+    // Your camera initialization logic
   }
 
   @override
@@ -52,24 +53,19 @@ class ChallengeTodayState extends State<ChallengeToday> {
                 itemBuilder: (context, index) {
                   var specie = snapshot.data![index];
                   return GestureDetector(
-                    onTap: () {
-                      if (camerasList != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CameraScreen(
-                              cameras: camerasList!,
-                            ),
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Cameras not available'),
-                            duration: Duration(seconds: 2),
-                          ),
-                        );
+                    onTap: () async {
+                      // Open the gallery and get the selected image
+                      final pickedFile =
+                          await ImagePicker().pickImage(source: ImageSource.gallery);
+
+                      if (pickedFile != null) {
+                        setState(() {
+                          selectedImagesMap[index] = File(pickedFile.path);
+                        });
+                        globalSeedPoints += 1;
                       }
+
+                      // Do something with the selected image if needed
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -86,47 +82,29 @@ class ChallengeTodayState extends State<ChallengeToday> {
                             )
                           ],
                         ),
-                        child: GestureDetector(
-                          onTap: () {
-                            if (camerasList != null) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CameraScreen(
-                                    cameras: camerasList!,
-                                  ),
-                                ),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Cameras not available'),
-                                  duration: Duration(seconds: 2),
-                                ),
-                              );
-                            }
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: getImageForKingdom(specie.kingdom),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  specie.specieName,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontFamily: 'Tenor',
-                                    fontSize: 20,
-                                  ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // Use the selected image or default if not set
+                            SizedBox(
+                              width: 100,
+                              height: 100,
+                              child: selectedImagesMap[index] != null
+                                  ? Image.file(selectedImagesMap[index]!)
+                                  : getImageForKingdom(specie.kingdom),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                specie.specieName,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontFamily: 'Tenor',
+                                  fontSize: 20,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
