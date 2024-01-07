@@ -7,12 +7,10 @@ import 'package:impact/screens/challengeToday.dart';
 import 'package:impact/screens/directoryoverlay.dart';
 import 'package:camera/camera.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final cameras = await availableCameras();
-  runApp(App(cameras : cameras));
+  runApp(App(cameras: cameras));
 }
 
 class App extends StatelessWidget {
@@ -22,7 +20,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: DirectoryOverlay(), // replace with CameraScreen(cameras: cameras) to see camera page
+      home:
+          DirectoryOverlay(), // replace with CameraScreen(cameras: cameras) to see camera page
     );
   }
 }
