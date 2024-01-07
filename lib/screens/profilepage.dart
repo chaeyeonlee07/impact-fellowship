@@ -4,8 +4,31 @@ import 'package:image_picker/image_picker.dart';
 
 int globalSeedPoints = 0;
 
-class ProfilePage extends StatelessWidget {
+class App extends StatelessWidget {
+  const App({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: ProfilePage(),
+    );
+  }
+}
+
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  XFile? _imageFile;
+  final ImagePicker _picker = ImagePicker();
+
+  
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,72 +86,90 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-}
 
-Widget bottomsheet(BuildContext context) {
-  return Container(
-    height: 100,
-    margin: const EdgeInsets.symmetric(
-      horizontal: 20,
-      vertical: 20,
-    ),
-    child: Column(
-      children: <Widget>[
-        const Text(
-          "Choose profile picture",
-          style: TextStyle(
-            fontSize: 20,
-          ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.camera),
-              label: const Text("Camera"),
+  Widget bottomsheet(BuildContext context) {
+    return Container(
+      height: 100,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          const Text(
+            "Choose profile picture",
+            style: TextStyle(
+              fontSize: 20,
             ),
-            TextButton.icon(
-              icon: const Icon(Icons.image),
-              onPressed: () {},
-              label: const Text("Gallery"),
-            )
-          ],
-        )
-      ],
-    ),
-  );
-}
-
-Widget pfp(BuildContext context) {
-  return Stack(
-    children: <Widget>[
-      const CircleAvatar(
-        radius: 80,
-        backgroundImage: AssetImage("assets/defaultpfp.png"),
-        backgroundColor: Colors.white,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextButton.icon(
+                onPressed: () {
+                  takePhoto(ImageSource.camera);
+                },
+                icon: const Icon(Icons.camera_alt),
+                
+                label: const Text("Camera"),
+              ),
+              TextButton.icon(
+                icon: const Icon(Icons.image),
+                onPressed: () {
+                  takePhoto(ImageSource.gallery);
+                },
+                label: const Text("Gallery"),
+              )
+            ],
+          )
+        ],
       ),
-      Positioned(
-        bottom: 20,
-        right: 20,
-        child: InkWell(
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (builder) =>
-                  bottomsheet(context), // Pass the context here
-            );
-          },
-          child: const Icon(
-            Icons.camera_alt,
-            color: Colors.teal,
-            size: 20,
+    );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final XFile? pickedFile = await _picker.pickImage(
+      source: source,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = pickedFile;
+      });
+    }
+  }
+
+  Widget pfp(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        CircleAvatar(
+          radius: 80,
+          backgroundImage: _imageFile == null
+              ? const AssetImage("lib/images/defaultpfp.png")
+              : _imageFile != null
+                  ? FileImage(File(_imageFile!.path)) as ImageProvider<Object>?
+                  : null,
+        ),
+        Positioned(
+          bottom: 5,
+          right: 5,
+          child: InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (builder) => bottomsheet(context),
+              );
+            },
+            child: const Icon(
+              Icons.camera_alt,
+              color: Colors.teal,
+              size: 50,
+            ),
           ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }
