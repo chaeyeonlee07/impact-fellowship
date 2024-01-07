@@ -1,13 +1,32 @@
+import 'package:flutter/material.dart';
 import 'package:impact/services/api_service.dart';
 import 'package:impact/models/specie.dart';
-import 'package:flutter/material.dart';
 import 'package:impact/screens/camera.dart';
+import 'package:camera/camera.dart';
 
-class ChallengeToday extends StatelessWidget {
-  ChallengeToday({Key? key}) : super(key: key);
+class ChallengeToday extends StatefulWidget {
+  const ChallengeToday({Key? key}) : super(key: key);
 
+  @override
+  ChallengeTodayState createState() => ChallengeTodayState();
+}
+
+class ChallengeTodayState extends State<ChallengeToday> {
   final Future<List<Specie>> species =
       ApiService.getSpeciesInArea(55.96, 55.97, 12.20, 12.25);
+
+  List<CameraDescription>? camerasList;
+
+  Future<void> initializeCameras() async {
+    camerasList = await availableCameras();
+    setState(() {}); // Trigger a rebuild after initializing cameras
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initializeCameras();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +53,23 @@ class ChallengeToday extends StatelessWidget {
                   var specie = snapshot.data![index];
                   return GestureDetector(
                     onTap: () {
-                      // Navigate to the camera screen when tapped
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CameraScreen(
-                              cameras:  ), // Assuming 'cameras' is a property of Specie
-                        ),
-                      );
+                      if (camerasList != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CameraScreen(
+                              cameras: camerasList!,
+                            ),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Cameras not available'),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -58,26 +86,47 @@ class ChallengeToday extends StatelessWidget {
                             )
                           ],
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 100, // Adjust the width as needed
-                              height: 100, // Adjust the height as needed
-                              child: getImageForKingdom(specie.kingdom),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Text(
-                                specie.specieName,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontFamily: 'Tenor',
-                                  fontSize: 20,
+                        child: GestureDetector(
+                          onTap: () {
+                            if (camerasList != null) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CameraScreen(
+                                    cameras: camerasList!,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Cameras not available'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            }
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 100,
+                                height: 100,
+                                child: getImageForKingdom(specie.kingdom),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  specie.specieName,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontFamily: 'Tenor',
+                                    fontSize: 20,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

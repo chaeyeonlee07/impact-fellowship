@@ -5,7 +5,6 @@ import 'package:impact/screens/calendar.dart';
 import 'package:impact/screens/camera.dart';
 import 'package:camera/camera.dart';
 
-
 class DirectoryOverlay extends StatefulWidget {
   const DirectoryOverlay({super.key});
 
@@ -14,20 +13,21 @@ class DirectoryOverlay extends StatefulWidget {
 }
 
 class _DirectoryOverlayState extends State<DirectoryOverlay> {
-  List<CameraDescription>? camerasList; // this variable stores which cameras (front camera and back camera) are available, but since the camera isn't always active this is not always going to have a value
+  List<CameraDescription>?
+      camerasList; // this variable stores which cameras (front camera and back camera) are available, but since the camera isn't always active this is not always going to have a value
 
-  Future<void> initializeCameras() async { // this method assigns the camerasList an actual value 
-    camerasList = await availableCameras(); 
+  Future<void> initializeCameras() async {
+    // this method assigns the camerasList an actual value
+    camerasList = await availableCameras();
     setState(() {}); // Trigger a rebuild after initializing cameras
   }
 
   @override
-  void initState() { // the initState is needed to call the initializeCameras method 
+  void initState() {
+    // the initState is needed to call the initializeCameras method
     super.initState();
     initializeCameras();
   } //after this you should be able to call CameraScreens(widget.camerasList!) to access the camera screen (line 87 has an example)
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +53,6 @@ class _DirectoryOverlayState extends State<DirectoryOverlay> {
     );
   }
 }
-
-
 
 class BottomNavigationOverlay extends StatefulWidget {
   final List<CameraDescription>? camerasList;
@@ -83,7 +81,7 @@ class _BottomNavigationOverlayState extends State<BottomNavigationOverlay> {
   void _initializeScreens() {
     _screens = [
       const ProfilePage(),
-      ChallengeToday(),
+      const ChallengeToday(),
       if (widget.camerasList != null)
         CameraScreen(cameras: widget.camerasList!),
       const Calendars(),
@@ -97,7 +95,7 @@ class _BottomNavigationOverlayState extends State<BottomNavigationOverlay> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         fixedColor: const Color.fromARGB(255, 33, 226, 39),
-        unselectedItemColor: const Color.fromARGB(159, 0, 97, 24),  
+        unselectedItemColor: const Color.fromARGB(159, 0, 97, 24),
         onTap: (index) {
           setState(() {
             _currentIndex = index;
@@ -126,4 +124,3 @@ class _BottomNavigationOverlayState extends State<BottomNavigationOverlay> {
     );
   }
 }
-

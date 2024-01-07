@@ -60,10 +60,7 @@ class _CameraScreenState extends State<CameraScreen> {
             title: const Text(
               // textAlign: TextAlign.center,
               "Take a Photo!",
-              style: TextStyle(
-                color: Color.fromARGB(255, 89, 255, 175)
-              ),
-              
+              style: TextStyle(color: Color.fromARGB(255, 89, 255, 175)),
             ),
             backgroundColor: const Color.fromARGB(255, 18, 47, 19),
           ),
@@ -99,7 +96,8 @@ class _CameraScreenState extends State<CameraScreen> {
                       ));
                     }
                   },
-                  icon: const Icon(Icons.switch_camera_rounded, color: Colors.white),
+                  icon: const Icon(Icons.switch_camera_rounded,
+                      color: Colors.white),
                 ),
                 GestureDetector(
                   onTap: () async {

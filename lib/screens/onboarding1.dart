@@ -20,7 +20,7 @@ class OnBoarding1 extends StatelessWidget {
           ),
           child: const Center(
             child: Text(
-              'Your App Content Goes Here',
+              'Nature Quest',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24,
