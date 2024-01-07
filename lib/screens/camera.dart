@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+
 
 import 'gallery.dart';
 
@@ -106,6 +109,7 @@ class _CameraScreenState extends State<CameraScreen> {
                     setState(() {
                       capturedImages.add(File(xFile.path));
                     });
+                    ImageGallerySaver.saveFile(xFile.path);
                   },
                   child: Container(
                     height: 60,
