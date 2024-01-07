@@ -21,7 +21,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home:
-          DirectoryOverlay(), // replace with CameraScreen(cameras: cameras) to see camera page
+          OnBoarding1(), // replace with CameraScreen(cameras: cameras) to see camera page
     );
   }
 }

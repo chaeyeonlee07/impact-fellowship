@@ -26,11 +26,12 @@ class ApiService {
     List<Specie> specieInstances = [];
     try {
       final apiUrl =
-          "https://api.gbif.org/v1/occurrence/search?decimalLatitude=$minLat,$maxLat&decimalLongitude=$minLon,$maxLon&limit=100";
+          "https://api.gbif.org/v1/occurrence/search?decimalLatitude=$minLat,$maxLat&decimalLongitude=$minLon,$maxLon&limit=10";
       final response = await http.get(Uri.parse(apiUrl));
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final List<dynamic> result = jsonDecode(response.body)['results'];
+         
         for (var specie in result) {
           final log = Specie.fromJson(specie);
           specieInstances.add(log);
