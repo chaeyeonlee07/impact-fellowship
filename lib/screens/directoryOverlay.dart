@@ -94,7 +94,7 @@ class _BottomNavigationOverlayState extends State<BottomNavigationOverlay> {
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        fixedColor: const Color.fromARGB(255, 33, 226, 39),
+        fixedColor: const Color.fromARGB(255, 142, 237, 185),
         unselectedItemColor: const Color.fromARGB(159, 0, 97, 24),
         onTap: (index) {
           setState(() {
