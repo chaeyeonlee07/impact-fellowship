@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-//void main() => runApp(MyApp());
-
 class Calendar extends StatelessWidget {
   const Calendar({super.key});
-
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -17,7 +13,6 @@ class Calendar extends StatelessWidget {
 
 class Calendars extends StatefulWidget {
   const Calendars({super.key});
-
 
   @override
   State<Calendars> createState() => _CalendarsState();

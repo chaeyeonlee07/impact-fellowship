@@ -60,8 +60,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
               
             ),
-            const SizedBox(height: 10),
-            const Text("asdf")
           ],
         ),
       ),
@@ -93,7 +91,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {
                   takePhoto(ImageSource.camera);
                 },
-                icon: const Icon(Icons.camera),
+                icon: const Icon(Icons.camera_alt),
+                
                 label: const Text("Camera"),
               ),
               TextButton.icon(
@@ -133,8 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   : null,
         ),
         Positioned(
-          bottom: 10,
-          right: 10,
+          bottom: 5,
+          right: 5,
           child: InkWell(
             onTap: () {
               showModalBottomSheet(
@@ -146,7 +145,6 @@ class _ProfilePageState extends State<ProfilePage> {
               Icons.camera_alt,
               color: Colors.teal,
               size: 50,
-              shadows: [Shadow(color: Colors.black)],
             ),
           ),
         ),

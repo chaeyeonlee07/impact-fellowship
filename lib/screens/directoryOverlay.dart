@@ -30,8 +30,8 @@ class _BottomNavigationOverlayState extends State<BottomNavigationOverlay> {
 
   final List<Widget> _screens = [
     const ProfilePage(),
-    const Calendars(),
     ChallengeToday(),
+    const Calendars(),
   ];
 
   @override
@@ -51,13 +51,21 @@ class _BottomNavigationOverlayState extends State<BottomNavigationOverlay> {
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.school),
             label: 'Challenge of Day',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.camera_enhance_outlined),
+          //   label: 'Camera',
+          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Calendar',
+          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.school),
+          //   label: 'Friends',
+          // ),
         ],
       ),
     );
