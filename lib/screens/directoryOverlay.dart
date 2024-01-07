@@ -14,18 +14,20 @@ class DirectoryOverlay extends StatefulWidget {
 }
 
 class _DirectoryOverlayState extends State<DirectoryOverlay> {
-  List<CameraDescription>? camerasList;
+  List<CameraDescription>? camerasList; // this variable stores which cameras (front camera and back camera) are available, but since the camera isn't always active this is not always going to have a value
 
-  @override
-  void initState() {
-    super.initState();
-    initializeCameras();
-  }
-
-  Future<void> initializeCameras() async {
-    camerasList = await availableCameras();
+  Future<void> initializeCameras() async { // this method assigns the camerasList an actual value 
+    camerasList = await availableCameras(); 
     setState(() {}); // Trigger a rebuild after initializing cameras
   }
+
+  @override
+  void initState() { // the initState is needed to call the initializeCameras method 
+    super.initState();
+    initializeCameras();
+  } //after this you should be able to call CameraScreens(widget.camerasList!) to access the camera screen (line 87 has an example)
+
+  
 
   @override
   Widget build(BuildContext context) {
