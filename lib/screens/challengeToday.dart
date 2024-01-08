@@ -69,6 +69,8 @@ class ChallengeTodayState extends State<ChallengeToday> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      // ... Your existing code ...
+
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -77,8 +79,9 @@ class ChallengeTodayState extends State<ChallengeToday> {
                             BoxShadow(
                               blurRadius: 1,
                               offset: const Offset(1, -10),
-                              color: const Color.fromARGB(255, 194, 219, 148)
-                                  .withOpacity(0.9),
+                              color: selectedImagesMap[index] != null
+                                  ? const Color.fromARGB(255, 169, 191, 129) // Change the color when an image is selected
+                                  : const Color.fromARGB(255, 194, 219, 148).withOpacity(0.9),
                             )
                           ],
                         ),
@@ -107,6 +110,8 @@ class ChallengeTodayState extends State<ChallengeToday> {
                           ],
                         ),
                       ),
+                      // ... Your existing code ...
+
                     ),
                   );
                 },
